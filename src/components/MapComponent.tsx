@@ -6,7 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 // Read the token from environment variables
 // In production, this should be set in .env.local
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || 'YOUR_MAPBOX_ACCESS_TOKEN';
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || 'pk.eyJ1IjoidGVzdHBhcGVyMDgyMSIsImEiOiJjbTg0aDZpbjgxcndzMmtzYWs1cm9scWNxIn0.dlxSTr9vgJxqSkNunVNlbQ';
 
 interface MapComponentProps {
   address: string;
