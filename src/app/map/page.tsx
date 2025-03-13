@@ -3,11 +3,21 @@
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import MapComponent from '@/components/MapComponent';
+import { Suspense } from 'react';
 
-export default function MapPage() {
+// Create a client component that uses useSearchParams
+function MapContent() {
   const searchParams = useSearchParams();
   const address = searchParams.get('address') || '';
 
+  return (
+    <div className="bg-gradient-to-br from-white/90 to-gray-50/90 rounded-2xl sm:rounded-3xl shadow-xl border border-white/50 backdrop-blur-md overflow-hidden h-[400px] sm:h-[500px] md:h-[600px]">
+      <MapComponent address={address} />
+    </div>
+  );
+}
+
+export default function MapPage() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-white to-gray-50 font-sans">
       <header className="py-6 md:py-8 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-b border-gray-100/50">
@@ -26,9 +36,9 @@ export default function MapPage() {
       </header>
 
       <main className="flex-grow container mx-auto px-4 sm:px-6 py-8">
-        <div className="bg-gradient-to-br from-white/90 to-gray-50/90 rounded-2xl sm:rounded-3xl shadow-xl border border-white/50 backdrop-blur-md overflow-hidden h-[400px] sm:h-[500px] md:h-[600px]">
-          <MapComponent address={address} />
-        </div>
+        <Suspense fallback={<div className="h-[400px] sm:h-[500px] md:h-[600px] flex items-center justify-center bg-gray-100 rounded-2xl sm:rounded-3xl">Loading map...</div>}>
+          <MapContent />
+        </Suspense>
       </main>
 
       <footer className="py-6 md:py-8 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-t border-gray-100/50">
